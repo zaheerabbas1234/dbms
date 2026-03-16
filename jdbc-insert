@@ -1,0 +1,46 @@
+open oracle
+create table s(sid int,sname varchar(30),age int,address varchar2(30));
+
+============================================================================================
+import java.sql.*;
+import java.util.Scanner;
+public class JdbcInsert
+{
+    public static void main(String[] args) throws Exception
+    {
+       Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection conn = DriverManager.getConnection(
+        "jdbc:oracle:thin:@localhost:1521:XE","system","tec");
+        System.out.println("Connected to Oracle Database!");
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter sid: ");
+        int sid = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter sname: ");
+        String sname = sc.nextLine();
+	System.out.print("Enter age: ");
+        int age = sc.nextInt();
+        sc.nextLine();
+	System.out.print("Enter address: ");
+        String address = sc.nextLine();	
+        String sql = "insert into s(sid,sname,age,address) values(?,?,?,?)";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, sid);
+        ps.setString(2, sname);
+	ps.setInt(3,age);
+	ps.setString(4,address);
+        ps.executeUpdate();
+        System.out.println("Row inserted successfully!");
+        conn.close();
+    }
+}
+=======================================================================================================
+C:\JavaPrograms>javac -cp ojdbc8.jar JdbcInsert.java
+
+C:\JavaPrograms>java -cp .;ojdbc8.jar JdbcInsert
+Connected to Oracle Database!
+Enter sid: 30
+Enter sname: koti
+Enter age: 10
+Enter address: cpt
+Row inserted successfully!
