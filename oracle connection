@@ -13,3 +13,9 @@ public class OracleConnect
         conn.close();
     }
 }
+
+=================================================
+compile :
+javac -cp ojdbc8.jar OracleConnect.java
+run:
+javac -cp ojdbc8.jar OracleConnect
